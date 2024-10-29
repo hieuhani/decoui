@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@vitejs/plugin-react": "^4.3.3",
+    "prettier": "^3.1.1",
+    "turbo": "^2.2.3",
+    "vitest": "^2.1.4",
+    "vitest-react-native": "^0.1.5"
+  },
+  "packageManager": "yarn@4.5.1",
+  "engines": {
+    "node": ">=18"
+  },
+  "name": "with-react-native-web"
+}
