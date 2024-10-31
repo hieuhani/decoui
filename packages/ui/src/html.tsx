@@ -43,7 +43,7 @@ import {
 } from "@expo/html-elements";
 import { deco } from "./deco";
 
-export const A = deco(ExpoA, { fontSize: 20, color: "red" });
+export const A = deco(ExpoA, { color: "red" });
 export const Article = deco(ExpoArticle);
 export const Aside = deco(ExpoAside);
 export const B = deco(ExpoB);

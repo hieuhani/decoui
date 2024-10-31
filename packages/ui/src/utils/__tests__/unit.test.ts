@@ -1,6 +1,6 @@
 import { test, expect, describe } from "vitest";
 
-import { remToPtRaw, remToPt } from "../rem-to-pt";
+import { remToPtRaw, remToPt } from "../unit";
 
 describe("convert rem to pt when base font size is 16px", () => {
   test("without unit 1rem = 12pt", () => {

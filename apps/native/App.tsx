@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, useColorScheme, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button } from "@decoui/ui";
+import { Button, A } from "@decoui/ui";
 
 export default function Native() {
   return (
@@ -8,11 +8,20 @@ export default function Native() {
       <Text style={styles.header}>Native</Text>
       <Button
         onClick={() => {
-          console.log("Pressed!");
           alert("Pressed!");
         }}
         text="Boop"
       />
+      <A
+        sx={{
+          fontSize: 36,
+        }}
+        style={{
+          fontWeight: "bold",
+        }}
+      >
+        Hello
+      </A>
       <StatusBar style="auto" />
     </View>
   );

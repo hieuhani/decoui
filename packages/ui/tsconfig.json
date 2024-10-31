@@ -4,6 +4,6 @@
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
     "strict": true,
-    "jsx": "react-native"
+    "jsx": "react-jsx"
   }
 }

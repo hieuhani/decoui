@@ -1,8 +1,7 @@
-import * as React from "react";
 import {
   TouchableOpacity,
   StyleSheet,
-  GestureResponderEvent,
+  type GestureResponderEvent,
   Text,
 } from "react-native";
 

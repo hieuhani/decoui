@@ -407,8 +407,18 @@ export const borderWidth = {
 
 export type BorderWidth = typeof borderWidth;
 
+export const screens = {
+  sm: "640px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1280px",
+  "2xl": "1536px",
+};
+
+export type Screen = Record<keyof typeof screens, string | number>;
+
 import { PixelRatio, Platform } from "react-native";
-import { remToPt } from "./utils/rem-to-pt";
+import { remToPt } from "./utils/unit";
 
 const makePlatformSpacing = (spacing: { [key: string]: string }) => {
   if (Platform.OS === "web") {
@@ -465,6 +475,7 @@ export const createTokens = () => {
   return {
     colors,
     fontWeight,
+    screens: screens,
     borderRadius: makePlatformBorderRadius(borderRadius),
     fontSize: makePlatformFontSize(fontSize),
     spacing: makePlatformSpacing(spacing),

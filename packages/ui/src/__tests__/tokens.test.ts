@@ -3,14 +3,14 @@ import { createTokens } from "../tokens";
 import { PixelRatio, Platform } from "react-native";
 
 describe("token", () => {
-  test("createTheme for the web platform", () => {
+  test("createTokens for the web platform", () => {
     vi.spyOn(Platform, "OS", "get").mockReturnValue("web");
     const tokens = createTokens();
     expect(tokens.spacing["0"]).toBe("0");
     expect(tokens.spacing["0.5"]).toBe("0.125rem");
   });
 
-  test("createTheme for native platform should respect device font scale", () => {
+  test("createTokens for native platform should respect device font scale", () => {
     vi.spyOn(Platform, "OS", "get").mockReturnValue("ios");
     vi.spyOn(PixelRatio, "getFontScale").mockReturnValue(1);
     const tokens = createTokens();
