@@ -1,4 +1,7 @@
-module.exports = {
+const { withExpo } = require("@expo/next-adapter");
+
+/** @type {import('next').NextConfig} */
+const nextConfig = withExpo({
   reactStrictMode: true,
   webpack: (config) => {
     config.resolve.alias = {
@@ -15,4 +18,7 @@ module.exports = {
     ];
     return config;
   },
-};
+  transpilePackages: ["@expo/html-elements"],
+});
+
+module.exports = nextConfig;

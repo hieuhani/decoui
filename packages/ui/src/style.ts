@@ -30,11 +30,11 @@ type WithDesignToken<S> =
   S extends StyleProp<TextStyle>
     ? {
         color?: PossibleColorToken;
-      }
+      } & S
     : S extends StyleProp<ExpoViewStyle>
       ? {
           backgroundColor?: PossibleColorToken;
-        }
+        } & S
       : S;
 
 export type DecoStyle<S> = {
