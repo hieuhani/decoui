@@ -1,4 +1,4 @@
-export type ColorScale =
+type ColorWithScale =
   | 50
   | 100
   | 200
@@ -11,13 +11,7 @@ export type ColorScale =
   | 900
   | 950;
 
-export type ColorWithScale = Record<ColorScale, string>;
-
-export type Colors = {
-  [color: string]: string | ColorWithScale;
-};
-
-export const colors: Colors = {
+export const colors = {
   inherit: "inherit",
   current: "currentColor",
   transparent: "transparent",
@@ -311,6 +305,13 @@ export const colors: Colors = {
   },
 };
 
+type Colors = typeof colors;
+type ColorTokenMap = {
+  [K in keyof Colors]: Colors[K] extends string ? K : `${K}.${ColorWithScale}`;
+};
+
+export type PossibleColorToken = ColorTokenMap[keyof ColorTokenMap];
+
 export const spacing = {
   0: "0",
   0.5: "0.125rem",
@@ -346,7 +347,7 @@ export const spacing = {
   72: "18rem",
   80: "20rem",
   96: "24rem",
-};
+} satisfies { [color: string]: string };
 
 export const fontWeight = {
   thin: "100",

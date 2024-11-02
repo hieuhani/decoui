@@ -1,12 +1,12 @@
 import { test, expect, describe } from "vitest";
 import { composeStyles, type DecoStyle, type StyleContext } from "../style";
-import type { StyleProp, TextStyle } from "react-native";
+import type { StyleProp } from "react-native";
 
 describe("style", () => {
   test("composeStyles", () => {
     const testCases: {
       context: StyleContext;
-      styles: DecoStyle<StyleProp<TextStyle>>[];
+      styles: DecoStyle<StyleProp<any>>[];
       expectedStyle: StyleProp<any>;
     }[] = [
       {
@@ -168,6 +168,37 @@ describe("style", () => {
           fontSize: 18,
           color: "green",
           width: 200,
+        },
+      },
+      {
+        context: {
+          colorScheme: "light",
+          windowWidth: 500,
+        },
+        styles: [
+          {
+            color: "red.100",
+          },
+        ],
+        expectedStyle: {
+          color: "#fee2e2",
+        },
+      },
+      {
+        context: {
+          colorScheme: "dark",
+          windowWidth: 500,
+        },
+        styles: [
+          {
+            color: "red.100",
+            dark: {
+              color: "green.300",
+            },
+          },
+        ],
+        expectedStyle: {
+          color: "#86efac",
         },
       },
     ];

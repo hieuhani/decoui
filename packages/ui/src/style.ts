@@ -1,7 +1,9 @@
-import type { StyleProp } from "react-native";
-import ReactNativeStyleAttributes from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
+import type { StyleProp, TextStyle } from "react-native";
 import { tokens } from "./theme";
 import { normalizeUnit } from "./utils/unit";
+import { styleAttributes } from "./internal/rn-style-attributes";
+import type { PossibleColorToken } from "./tokens";
+import type { ViewStyle as ExpoViewStyle } from "@expo/html-elements/build/primitives/View";
 
 const groupModifiers = {
   minWidth: ["sm", "md", "lg", "xl", "2xl"],
@@ -24,6 +26,17 @@ type MaxWidthBreakpoint = (typeof groupModifiers.maxWidth)[number];
 type ColorScheme = (typeof groupModifiers.colorScheme)[number];
 type ElementState = (typeof groupModifiers.elementState)[number];
 
+type WithDesignToken<S> =
+  S extends StyleProp<TextStyle>
+    ? {
+        color?: PossibleColorToken;
+      }
+    : S extends StyleProp<ExpoViewStyle>
+      ? {
+          backgroundColor?: PossibleColorToken;
+        }
+      : S;
+
 export type DecoStyle<S> = {
   [K in
     | MinWidthBreakpoint
@@ -40,13 +53,45 @@ export type DecoStyle<S> = {
     | `${MinWidthBreakpoint}:${MaxWidthBreakpoint}:${ElementState}`
     | `${MinWidthBreakpoint}:${ColorScheme}:${ElementState}`
     | `${MaxWidthBreakpoint}:${ColorScheme}:${ElementState}`
-    | `${MinWidthBreakpoint}:${MaxWidthBreakpoint}:${ColorScheme}:${ElementState}`]?: S;
-} & S;
+    | `${MinWidthBreakpoint}:${MaxWidthBreakpoint}:${ColorScheme}:${ElementState}`]?: WithDesignToken<S>;
+} & WithDesignToken<S>;
 
 export type StyleContext = {
   colorScheme: "light" | "dark";
   windowWidth: number;
   elementState?: ElementState;
+};
+
+const resolveDesignTokenValue = (token: string, value: unknown) => {
+  if (typeof value !== "string") {
+    return value;
+  }
+  switch (token) {
+    case "color":
+    case "backgroundColor": {
+      const paths = value.split(".");
+      if (paths.length !== 2) {
+        return value;
+      }
+      return (
+        paths.reduce((acc, path) => {
+          return (acc as any)[path];
+        }, tokens.colors) ?? value
+      );
+    }
+    default:
+      return value;
+  }
+};
+
+const resolveDesignTokenFromStyle = (style: { [key: string]: any }) => {
+  return Object.entries(style).reduce<{ [key: string]: any }>(
+    (acc, [key, value]) => {
+      acc[key] = resolveDesignTokenValue(key, value);
+      return acc;
+    },
+    {}
+  );
 };
 
 export const composeStyles = (
@@ -64,8 +109,8 @@ export const composeStyles = (
   );
   let outputStyles = {} as StyleProp<any>;
   Object.keys(mergedStyles).forEach((key) => {
-    if (ReactNativeStyleAttributes[key]) {
-      outputStyles[key] = mergedStyles[key]; // TODO: map value with design token
+    if (styleAttributes[key]) {
+      outputStyles[key] = resolveDesignTokenValue(key, mergedStyles[key]);
       return;
     }
     const modifiers = new Set(key.split(":"));
@@ -83,7 +128,7 @@ export const composeStyles = (
         if (context.windowWidth >= breakpoint) {
           outputStyles = {
             ...outputStyles,
-            ...mergedStyles[key],
+            ...resolveDesignTokenFromStyle(mergedStyles[key]),
           };
         }
         minWidthBreakpoint = breakpoint;
@@ -96,14 +141,14 @@ export const composeStyles = (
           if (context.windowWidth >= minWidthBreakpoint) {
             outputStyles = {
               ...outputStyles,
-              ...mergedStyles[key],
+              ...resolveDesignTokenFromStyle(mergedStyles[key]),
             };
           }
         } else {
           if (context.windowWidth <= breakpoint) {
             outputStyles = {
               ...outputStyles,
-              ...mergedStyles[key],
+              ...resolveDesignTokenFromStyle(mergedStyles[key]),
             };
           }
         }
@@ -111,14 +156,14 @@ export const composeStyles = (
         if (context.colorScheme === modifier) {
           outputStyles = {
             ...outputStyles,
-            ...mergedStyles[key],
+            ...resolveDesignTokenFromStyle(mergedStyles[key]),
           };
         }
       } else if (group === "elementState") {
         if (context.elementState === modifier) {
           outputStyles = {
             ...outputStyles,
-            ...mergedStyles[key],
+            ...resolveDesignTokenFromStyle(mergedStyles[key]),
           };
         }
       }
