@@ -1,8 +1,9 @@
 import type { ComponentType } from "react";
-import { composeStyles, type DecoStyle } from "./style";
+import { composeStyles, resolveTokenColor, type DecoStyle } from "./style";
 import type { StyleProp } from "react-native";
 import { config } from "./config";
 import { tokens } from "./theme";
+import type { PossibleColorToken } from "./tokens";
 
 type PropsHaveStyle<P = unknown> = P & {
   style?: DecoStyle<StyleProp<any>>;
@@ -20,7 +21,8 @@ export function deco<Props extends PropsHaveStyle>(
     const context = {
       colorScheme: config.dependencies.colorScheme ?? "light",
       windowWidth:
-        config.dependencies.windowWidth ?? typeof tokens.screens.sm === "number"
+        (config.dependencies.windowWidth ??
+        typeof tokens.screens.sm === "number")
           ? +tokens.screens.sm
           : 500,
       elementState: undefined,
@@ -38,4 +40,13 @@ export function deco<Props extends PropsHaveStyle>(
   }`;
 
   return DecoComponent as typeof DecoComponent;
+}
+
+export function colorLightDark(
+  light: PossibleColorToken,
+  dark: PossibleColorToken
+) {
+  return resolveTokenColor(
+    config.dependencies.colorScheme === "dark" ? dark : light
+  );
 }

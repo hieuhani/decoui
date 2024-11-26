@@ -1,5 +1,10 @@
 import { test, expect, describe } from "vitest";
-import { composeStyles, type DecoStyle, type StyleContext } from "../style";
+import {
+  composeStyles,
+  resolveTokenColor,
+  type DecoStyle,
+  type StyleContext,
+} from "../style";
 import type { StyleProp } from "react-native";
 
 describe("style", () => {
@@ -207,5 +212,13 @@ describe("style", () => {
       const composedStyles = composeStyles(context, ...styles);
       expect(composedStyles).toEqual(expectedStyle);
     });
+  });
+
+  test("resolveTokenColor", () => {
+    const amberColor = resolveTokenColor("amber.100");
+    expect(amberColor).toEqual("#fef3c7");
+
+    const inheritColor = resolveTokenColor("inherit");
+    expect(inheritColor).toEqual("inherit");
   });
 });

@@ -62,6 +62,18 @@ export type StyleContext = {
   elementState?: ElementState;
 };
 
+export const resolveTokenColor = (color: PossibleColorToken) => {
+  const paths = color.split(".");
+  if (paths.length !== 2) {
+    return color;
+  }
+  return (
+    paths.reduce((acc, path) => {
+      return (acc as any)[path];
+    }, tokens.colors) ?? color
+  );
+};
+
 const resolveDesignTokenValue = (token: string, value: unknown) => {
   if (typeof value !== "string") {
     return value;
@@ -69,15 +81,7 @@ const resolveDesignTokenValue = (token: string, value: unknown) => {
   switch (token) {
     case "color":
     case "backgroundColor": {
-      const paths = value.split(".");
-      if (paths.length !== 2) {
-        return value;
-      }
-      return (
-        paths.reduce((acc, path) => {
-          return (acc as any)[path];
-        }, tokens.colors) ?? value
-      );
+      return resolveTokenColor(value as PossibleColorToken);
     }
     default:
       return value;
