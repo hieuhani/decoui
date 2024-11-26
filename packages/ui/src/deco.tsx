@@ -1,6 +1,11 @@
 import type { ComponentType } from "react";
 import { composeStyles, resolveTokenColor, type DecoStyle } from "./style";
-import type { TextStyle, ViewStyle, StyleProp } from "react-native";
+import {
+  type TextStyle,
+  type ViewStyle,
+  type StyleProp,
+  View,
+} from "react-native";
 import { config } from "./config";
 import { tokens } from "./theme";
 import type { PossibleColorToken } from "./tokens";

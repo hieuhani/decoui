@@ -317,7 +317,8 @@ export type PossibleColorToken =
   | ColorTokenMap[keyof ColorTokenMap]
   | HEX
   | RGB
-  | RGBA;
+  | RGBA
+  | (string & {});
 
 export const spacing = {
   0: "0",
