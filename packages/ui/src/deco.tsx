@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 import { composeStyles, resolveTokenColor, type DecoStyle } from "./style";
-import type { StyleProp } from "react-native";
+import type { TextStyle, ViewStyle, StyleProp } from "react-native";
 import { config } from "./config";
 import { tokens } from "./theme";
 import type { PossibleColorToken } from "./tokens";
@@ -49,4 +49,24 @@ export function colorLightDark(
   return resolveTokenColor(
     config.dependencies.colorScheme === "dark" ? dark : light
   );
+}
+
+export function decoStyle(
+  sx: DecoStyle<StyleProp<ViewStyle>>
+): StyleProp<ViewStyle>;
+
+export function decoStyle(
+  sx: DecoStyle<StyleProp<TextStyle>>
+): StyleProp<TextStyle>;
+
+export function decoStyle(sx: unknown): StyleProp<unknown> {
+  const context = {
+    colorScheme: config.dependencies.colorScheme ?? "light",
+    windowWidth:
+      (config.dependencies.windowWidth ?? typeof tokens.screens.sm === "number")
+        ? +tokens.screens.sm
+        : 500,
+    elementState: undefined,
+  };
+  return composeStyles(context, sx);
 }

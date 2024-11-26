@@ -309,8 +309,15 @@ type Colors = typeof colors;
 type ColorTokenMap = {
   [K in keyof Colors]: Colors[K] extends string ? K : `${K}.${ColorWithScale}`;
 };
+type RGB = `rgb(${number}, ${number}, ${number})`;
+type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
+type HEX = `#${string}`;
 
-export type PossibleColorToken = ColorTokenMap[keyof ColorTokenMap];
+export type PossibleColorToken =
+  | ColorTokenMap[keyof ColorTokenMap]
+  | HEX
+  | RGB
+  | RGBA;
 
 export const spacing = {
   0: "0",
