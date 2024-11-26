@@ -1,5 +1,11 @@
 # @decoui/ui
 
+## 0.0.5
+
+### Patch Changes
+
+- expose decoStyle function
+
 ## 0.0.4
 
 ### Patch Changes
