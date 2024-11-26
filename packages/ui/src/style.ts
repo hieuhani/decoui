@@ -62,16 +62,17 @@ export type StyleContext = {
   elementState?: ElementState;
 };
 
-export const resolveTokenColor = (color: PossibleColorToken) => {
+export const resolveTokenColor = (color: PossibleColorToken): string => {
   const paths = color.split(".");
   if (paths.length !== 2) {
     return color;
   }
-  return (
-    paths.reduce((acc, path) => {
+  const resolvedColor = paths
+    .reduce((acc, path) => {
       return (acc as any)[path];
-    }, tokens.colors) ?? color
-  );
+    }, tokens.colors)
+    .toString();
+  return resolvedColor ?? color;
 };
 
 const resolveDesignTokenValue = (token: string, value: unknown) => {
