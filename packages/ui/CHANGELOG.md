@@ -1,5 +1,11 @@
 # @decoui/ui
 
+## 0.0.3
+
+### Patch Changes
+
+- get token value
+
 ## 0.0.2
 
 ### Patch Changes
