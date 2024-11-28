@@ -22,7 +22,7 @@ export function deco<Props extends PropsHaveStyle>(
     style,
     sx,
     ...props
-  }: Props & { sx?: DecoStyle<StyleProp<Props["style"]>> }) => {
+  }: Props & { sx?: DecoStyle<Props["style"]> }) => {
     const context = {
       colorScheme: config.dependencies.colorScheme ?? "light",
       windowWidth:

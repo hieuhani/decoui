@@ -84,7 +84,3 @@ export const Time = deco(ExpoTime);
 export const TR = deco(ExpoTR);
 export const UL = deco(ExpoUL);
 export const LI = deco(ExpoLI);
-
-const X = () => {
-  return <Div sx={{ backgroundColor: "amber.100" }}></Div>;
-};
