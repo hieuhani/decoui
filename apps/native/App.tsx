@@ -1,11 +1,26 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { A } from "@decoui/ui";
+import { A, deco } from "@decoui/ui";
 
 export default function Native() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Native</Text>
+    <View
+      style={deco({
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
+      })}
+    >
+      <Text
+        style={deco({
+          fontWeight: "bold",
+          marginBottom: 20,
+          fontSize: 36,
+        })}
+      >
+        Native
+      </Text>
 
       <A
         sx={{
@@ -22,17 +37,3 @@ export default function Native() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  header: {
-    fontWeight: "bold",
-    marginBottom: 20,
-    fontSize: 36,
-  },
-});

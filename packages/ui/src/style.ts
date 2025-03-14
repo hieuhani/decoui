@@ -1,4 +1,4 @@
-import type { StyleProp, TextStyle, ViewStyle } from "react-native";
+import type { StyleProp, TextStyle } from "react-native";
 import { tokens } from "./theme";
 import { normalizeUnit } from "./utils/unit";
 import { styleAttributes } from "./internal/rn-style-attributes";

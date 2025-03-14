@@ -2312,7 +2312,7 @@ __metadata:
   resolution: "@decoui/ui@workspace:packages/ui"
   dependencies:
     "@decoui/typescript-config": "npm:*"
-    "@expo/html-elements": "npm:^0.11.0"
+    "@expo/html-elements": "npm:^0.11.2"
     "@types/react": "npm:^18.3.12"
     "@types/react-native": "npm:^0.73.0"
     react: "npm:^18.3.1"
@@ -3161,10 +3161,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/html-elements@npm:^0.11.0":
-  version: 0.11.0
-  resolution: "@expo/html-elements@npm:0.11.0"
-  checksum: 10/f139545e8d89850644c2d3f66e980e627583386eb71c603cacd616271e6089902b787c64907e34c3118ede18c253f0f15e760fc61cea754e68ed2a95e3f14ba6
+"@expo/html-elements@npm:^0.11.2":
+  version: 0.11.2
+  resolution: "@expo/html-elements@npm:0.11.2"
+  checksum: 10/a60dd01807996d0c85269848bfea4e05e1b988383ca10f860857d2b4ed046aa831c4b54c1b378563342fa700649bd21b2eb3653d1831939f72b72872808d60e3
   languageName: node
   linkType: hard
 
