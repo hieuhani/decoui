@@ -1,0 +1,27 @@
+{
+  "name": "babel-preset-deco",
+  "version": "0.0.1",
+  "packageManager": "yarn@4.5.1",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/types": "^7.26.10",
+    "tsup": "^8.4.0"
+  }
+}

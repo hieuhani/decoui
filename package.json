@@ -9,9 +9,14 @@
     "build": "turbo run build",
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
-    "test": "vitest"
+    "test": "vitest",
+    "transform": "node transform.js"
   },
   "devDependencies": {
+    "@babel/cli": "^7.24.0",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-react": "^7.24.0",
+    "@babel/preset-typescript": "^7.24.0",
     "@biomejs/biome": "^1.9.4",
     "@vitejs/plugin-react": "^4.3.3",
     "@vitest/coverage-v8": "2.1.5",

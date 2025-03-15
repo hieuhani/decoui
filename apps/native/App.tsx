@@ -7,9 +7,12 @@ export default function Native() {
     <View
       style={deco({
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "gray.200",
         alignItems: "center",
         justifyContent: "center",
+        dark: {
+          backgroundColor: "gray.800",
+        },
       })}
     >
       <Text
@@ -17,6 +20,10 @@ export default function Native() {
           fontWeight: "bold",
           marginBottom: 20,
           fontSize: 36,
+          color: "gray.800",
+          dark: {
+            color: "gray.200",
+          },
         })}
       >
         Native

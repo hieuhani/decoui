@@ -20,15 +20,19 @@ type DecoProps<Props> = Props & {
   sx?: DecoStyle<Props extends PropsHaveStyle ? Props["style"] : never>;
 };
 
-// Utilities
-const getDefaultContext = (): StyleContext => ({
-  colorScheme: config.dependencies.colorScheme ?? "light",
-  windowWidth:
-    (config.dependencies.windowWidth ?? typeof tokens.screens.sm === "number")
-      ? +tokens.screens.sm
-      : 768,
-  elementState: undefined,
-});
+const getStyleContext = (
+  overriddenContext?: Partial<StyleContext>
+): StyleContext => {
+  return {
+    colorScheme:
+      overriddenContext?.colorScheme ??
+      config.dependencies.colorScheme ??
+      "light",
+    windowWidth:
+      overriddenContext?.windowWidth ?? config.dependencies.windowWidth ?? 768,
+    elementState: undefined,
+  };
+};
 
 /**
  * Creates a higher-order component that adds styling capabilities to a base component
@@ -40,7 +44,7 @@ export function decoHOC<Props extends PropsHaveStyle>(
   initialSx?: DecoStyle<Props["style"]>
 ) {
   const DecoComponent = ({ style, sx, ...props }: DecoProps<Props>) => {
-    const context = getDefaultContext();
+    const context = getStyleContext();
     return (
       <Component
         {...(props as Props)}
@@ -75,9 +79,10 @@ export function colorLightDark(
  * @param sx - Style object to process
  */
 export function deco<T extends ViewStyle | TextStyle>(
-  sx: DecoStyle<StyleProp<T>>
+  sx: DecoStyle<StyleProp<T>>,
+  overriddenContext?: Partial<StyleContext>
 ): StyleProp<T> {
-  const context = getDefaultContext();
+  const context = getStyleContext(overriddenContext);
   return composeStyles(context, sx);
 }
 
