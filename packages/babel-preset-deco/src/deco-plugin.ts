@@ -7,15 +7,8 @@ import type {
   FunctionDeclaration,
   ArrowFunctionExpression,
   FunctionExpression,
-  CallExpression,
-  ObjectExpression,
-  ObjectProperty,
   VariableDeclaration,
-  VariableDeclarator,
-  BlockStatement,
   Node,
-  StringLiteral,
-  ArrayExpression,
 } from "@babel/types";
 
 export function decoPlugin(api: ConfigAPI) {
@@ -81,9 +74,25 @@ type FunctionNodePath =
   | NodePath<FunctionExpression>;
 
 function handleFunction(path: FunctionNodePath) {
-  // Skip if not a React component (assuming components start with capital letter)
-  const functionName =
-    path.node.type === "FunctionDeclaration" ? path.node.id?.name : undefined;
+  // Skip if not a React component
+  // TODO: assuming components start with capital letter
+  let functionName: string | undefined;
+
+  if (path.node.type === "FunctionDeclaration") {
+    functionName = path.node.id?.name;
+  } else if (
+    path.node.type === "ArrowFunctionExpression" ||
+    path.node.type === "FunctionExpression"
+  ) {
+    // Check if the arrow function is assigned to a variable
+    if (
+      path.parent.type === "VariableDeclarator" &&
+      path.parent.id.type === "Identifier"
+    ) {
+      functionName = path.parent.id.name;
+    }
+  }
+
   if (!functionName || !/^[A-Z]/.test(functionName)) {
     return;
   }
