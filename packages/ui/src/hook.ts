@@ -7,20 +7,17 @@ export const useDeco = (dependencies: (keyof StyleContext)[]) => {
   const colorScheme = useColorScheme();
   const { width } = useWindowDimensions();
 
-  const deps: unknown[] = [];
-  if (dependencies.includes("colorScheme")) {
-    deps.push(colorScheme);
-  }
-  if (dependencies.includes("windowWidth")) {
-    deps.push(width);
-  }
-
-  const decoFn = useCallback((sx: Parameters<typeof deco>[0]) => {
-    return deco(sx, {
-      colorScheme: colorScheme ?? undefined,
-      windowWidth: width,
-    });
-  }, deps);
+  const decoFn = useCallback(
+    (sx: Parameters<typeof deco>[0]) => {
+      return deco(sx, {
+        colorScheme: dependencies.includes("colorScheme")
+          ? (colorScheme ?? undefined)
+          : undefined,
+        windowWidth: dependencies.includes("windowWidth") ? width : undefined,
+      });
+    },
+    [colorScheme, width, dependencies]
+  );
 
   return decoFn;
 };
