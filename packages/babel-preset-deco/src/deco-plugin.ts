@@ -120,6 +120,16 @@ function handleFunction(path: FunctionNodePath) {
             }
           });
         }
+        if (reactiveProps.size > 0) {
+          callPath.replaceWith({
+            type: "CallExpression",
+            callee: {
+              type: "Identifier",
+              name: "decoFn",
+            },
+            arguments: callPath.node.arguments,
+          });
+        }
       }
     },
     VariableDeclaration(varPath) {
@@ -127,7 +137,7 @@ function handleFunction(path: FunctionNodePath) {
         varPath.node.declarations.some(
           (d) =>
             d.id.type === "Identifier" &&
-            d.id.name === "deco" &&
+            d.id.name === "decoFn" &&
             d.init?.type === "CallExpression" &&
             (d.init.callee as Identifier).name === "useDeco"
         )
@@ -147,7 +157,7 @@ function handleFunction(path: FunctionNodePath) {
           type: "VariableDeclarator",
           id: {
             type: "Identifier",
-            name: "deco",
+            name: "decoFn",
           },
           init: {
             type: "CallExpression",

@@ -1,6 +1,8 @@
 import { Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { A, deco } from "@decoui/ui";
+import { deco, H3 } from "@decoui/ui";
+import { ArrowComponent } from "./ArrowComponent";
+import { DebugTheme } from "./DebugTheme";
 
 export default function Native() {
   return (
@@ -26,20 +28,19 @@ export default function Native() {
           },
         })}
       >
-        Native
+        Deco UI
       </Text>
-
-      <A
+      <DebugTheme />
+      <ArrowComponent />
+      <H3
         sx={{
-          color: "amber.100",
-          fontSize: 16,
-        }}
-        style={{
-          fontWeight: "bold",
+          color: "blue.800",
+          marginVertical: 0,
+          dark: { color: "blue.200" },
         }}
       >
-        Hello
-      </A>
+        Semantics tag
+      </H3>
       <StatusBar style="auto" />
     </View>
   );

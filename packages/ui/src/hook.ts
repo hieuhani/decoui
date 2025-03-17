@@ -1,20 +1,26 @@
 import { useColorScheme, useWindowDimensions } from "react-native";
-import { useMemo } from "react";
+import { useCallback } from "react";
 import { deco } from "./deco";
 import type { StyleContext } from "./style";
 
 export const useDeco = (dependencies: (keyof StyleContext)[]) => {
   const colorScheme = useColorScheme();
   const { width } = useWindowDimensions();
-  return useMemo(
-    () => (sx: Parameters<typeof deco>[0]) =>
-      deco(sx, {
-        colorScheme: colorScheme ?? undefined,
-        windowWidth: width,
-      }),
-    [
-      ...(dependencies.includes("colorScheme") ? [colorScheme] : []),
-      ...(dependencies.includes("windowWidth") ? [width] : []),
-    ]
-  );
+
+  const deps: unknown[] = [];
+  if (dependencies.includes("colorScheme")) {
+    deps.push(colorScheme);
+  }
+  if (dependencies.includes("windowWidth")) {
+    deps.push(width);
+  }
+
+  const decoFn = useCallback((sx: Parameters<typeof deco>[0]) => {
+    return deco(sx, {
+      colorScheme: colorScheme ?? undefined,
+      windowWidth: width,
+    });
+  }, deps);
+
+  return decoFn;
 };

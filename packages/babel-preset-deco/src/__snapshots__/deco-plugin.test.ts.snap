@@ -3,9 +3,9 @@
 exports[`deco-plugin should add useDeco hook when deco is used with breakpoints 1`] = `
 "import { jsx as _jsx } from "react/jsx-runtime";
 function MyComponent() {
-  const deco = useDeco(["windowWidth"]);
+  const decoFn = useDeco(["windowWidth"]);
   return /*#__PURE__*/_jsx(View, {
-    style: deco({
+    style: decoFn({
       sm: {
         width: 100
       },
@@ -20,9 +20,9 @@ function MyComponent() {
 exports[`deco-plugin should add useDeco hook when deco is used with dark mode 1`] = `
 "import { jsx as _jsx } from "react/jsx-runtime";
 function MyComponent() {
-  const deco = useDeco(["colorScheme"]);
+  const decoFn = useDeco(["colorScheme"]);
   return /*#__PURE__*/_jsx(View, {
-    style: deco({
+    style: decoFn({
       dark: {
         bg: 'gray.800'
       }
@@ -34,9 +34,9 @@ function MyComponent() {
 exports[`deco-plugin should add useDeco hook when deco is used with dark mode and should be worked with arrow function 1`] = `
 "import { jsx as _jsx } from "react/jsx-runtime";
 const MyComponent = () => {
-  const deco = useDeco(["colorScheme"]);
+  const decoFn = useDeco(["colorScheme"]);
   return /*#__PURE__*/_jsx(View, {
-    style: deco({
+    style: decoFn({
       dark: {
         bg: 'gray.800'
       }
@@ -48,9 +48,9 @@ const MyComponent = () => {
 exports[`deco-plugin should add useDeco hook with multiple reactive props 1`] = `
 "import { jsx as _jsx } from "react/jsx-runtime";
 function MyComponent() {
-  const deco = useDeco(["colorScheme", "windowWidth"]);
+  const decoFn = useDeco(["colorScheme", "windowWidth"]);
   return /*#__PURE__*/_jsx(View, {
-    style: deco({
+    style: decoFn({
       dark: {
         bg: 'gray.800'
       },
@@ -68,16 +68,16 @@ function MyComponent() {
 exports[`deco-plugin should handle multiple deco calls in the same component 1`] = `
 "import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 function MyComponent() {
-  const deco = useDeco(["colorScheme", "windowWidth"]);
+  const decoFn = useDeco(["colorScheme", "windowWidth"]);
   return /*#__PURE__*/_jsxs(_Fragment, {
     children: [/*#__PURE__*/_jsx(View, {
-      style: deco({
+      style: decoFn({
         dark: {
           bg: 'gray.800'
         }
       })
     }), /*#__PURE__*/_jsx(Text, {
-      style: deco({
+      style: decoFn({
         sm: {
           fontSize: 14
         },
@@ -105,9 +105,9 @@ function MyComponent() {
 exports[`deco-plugin should not duplicate useDeco hook if already present 1`] = `
 "import { jsx as _jsx } from "react/jsx-runtime";
 function MyComponent() {
-  const deco = useDeco(['colorScheme']);
+  const decoFn = useDeco(['colorScheme']);
   return /*#__PURE__*/_jsx(View, {
-    style: deco({
+    style: decoFn({
       dark: {
         bg: 'gray.800'
       }

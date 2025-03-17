@@ -24,7 +24,7 @@ describe("deco-plugin", () => {
     `;
 
     const result = transform(code);
-    expect(result).toContain('const deco = useDeco(["colorScheme"])');
+    expect(result).toContain('const decoFn = useDeco(["colorScheme"])');
     expect(result).toMatchSnapshot();
   });
 
@@ -38,7 +38,7 @@ describe("deco-plugin", () => {
     `;
 
     const result = transform(code);
-    expect(result).toContain('const deco = useDeco(["colorScheme"])');
+    expect(result).toContain('const decoFn = useDeco(["colorScheme"])');
     expect(result).toMatchSnapshot();
   });
 
@@ -52,7 +52,7 @@ describe("deco-plugin", () => {
     `;
 
     const result = transform(code);
-    expect(result).toContain('const deco = useDeco(["windowWidth"])');
+    expect(result).toContain('const decoFn = useDeco(["windowWidth"])');
     expect(result).toMatchSnapshot();
   });
 
@@ -71,7 +71,7 @@ describe("deco-plugin", () => {
 
     const result = transform(code);
     expect(result).toContain(
-      'const deco = useDeco(["colorScheme", "windowWidth"]);'
+      'const decoFn = useDeco(["colorScheme", "windowWidth"]);'
     );
     expect(result).toMatchSnapshot();
   });
@@ -105,9 +105,9 @@ describe("deco-plugin", () => {
   it("should not duplicate useDeco hook if already present", () => {
     const code = `
       function MyComponent() {
-        const deco = useDeco(['colorScheme']);
+        const decoFn = useDeco(['colorScheme']);
         return (
-          <View style={deco({ dark: { bg: 'gray.800' } })} />
+          <View style={decoFn({ dark: { bg: 'gray.800' } })} />
         );
       }
     `;
@@ -132,7 +132,7 @@ describe("deco-plugin", () => {
 
     const result = transform(code);
     expect(result).toContain(
-      'const deco = useDeco(["colorScheme", "windowWidth"]);'
+      'const decoFn = useDeco(["colorScheme", "windowWidth"]);'
     );
     expect(result).toMatchSnapshot();
   });
