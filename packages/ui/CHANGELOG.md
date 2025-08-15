@@ -1,5 +1,11 @@
 # @decoui/ui
 
+## 0.0.8
+
+### Patch Changes
+
+- support react-native@0.79
+
 ## 0.0.7
 
 ### Patch Changes
