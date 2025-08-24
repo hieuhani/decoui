@@ -1,5 +1,11 @@
 # @decoui/ui
 
+## 0.0.9
+
+### Patch Changes
+
+- fix: support rgba color
+
 ## 0.0.8
 
 ### Patch Changes

@@ -28,32 +28,32 @@ type ElementState = (typeof groupModifiers.elementState)[number];
 
 type WithDesignToken<S> =
   S extends StyleProp<TextStyle>
-    ? {
-        color?: PossibleColorToken;
-      } & S
-    : S extends StyleProp<ExpoViewStyle>
-      ? {
-          backgroundColor?: PossibleColorToken;
-        } & S
-      : S;
+  ? {
+    color?: PossibleColorToken;
+  } & S
+  : S extends StyleProp<ExpoViewStyle>
+  ? {
+    backgroundColor?: PossibleColorToken;
+  } & S
+  : S;
 
 export type DecoStyle<S> = {
   [K in
-    | MinWidthBreakpoint
-    | MaxWidthBreakpoint
-    | ColorScheme
-    | ElementState
-    | `${MinWidthBreakpoint}:${MaxWidthBreakpoint}`
-    | `${MinWidthBreakpoint}:${ColorScheme}`
-    | `${MinWidthBreakpoint}:${ElementState}`
-    | `${MaxWidthBreakpoint}:${ColorScheme}`
-    | `${MaxWidthBreakpoint}:${ElementState}`
-    | `${ColorScheme}:${ElementState}`
-    | `${MinWidthBreakpoint}:${MaxWidthBreakpoint}:${ColorScheme}`
-    | `${MinWidthBreakpoint}:${MaxWidthBreakpoint}:${ElementState}`
-    | `${MinWidthBreakpoint}:${ColorScheme}:${ElementState}`
-    | `${MaxWidthBreakpoint}:${ColorScheme}:${ElementState}`
-    | `${MinWidthBreakpoint}:${MaxWidthBreakpoint}:${ColorScheme}:${ElementState}`]?: WithDesignToken<S>;
+  | MinWidthBreakpoint
+  | MaxWidthBreakpoint
+  | ColorScheme
+  | ElementState
+  | `${MinWidthBreakpoint}:${MaxWidthBreakpoint}`
+  | `${MinWidthBreakpoint}:${ColorScheme}`
+  | `${MinWidthBreakpoint}:${ElementState}`
+  | `${MaxWidthBreakpoint}:${ColorScheme}`
+  | `${MaxWidthBreakpoint}:${ElementState}`
+  | `${ColorScheme}:${ElementState}`
+  | `${MinWidthBreakpoint}:${MaxWidthBreakpoint}:${ColorScheme}`
+  | `${MinWidthBreakpoint}:${MaxWidthBreakpoint}:${ElementState}`
+  | `${MinWidthBreakpoint}:${ColorScheme}:${ElementState}`
+  | `${MaxWidthBreakpoint}:${ColorScheme}:${ElementState}`
+  | `${MinWidthBreakpoint}:${MaxWidthBreakpoint}:${ColorScheme}:${ElementState}`]?: WithDesignToken<S>;
 } & WithDesignToken<S>;
 
 export type StyleContext = {
@@ -63,6 +63,9 @@ export type StyleContext = {
 };
 
 export const resolveTokenColor = (color: PossibleColorToken): string => {
+  if (color.startsWith("#") || color.startsWith("rgb") || color.startsWith("hsl") || color.startsWith("hwb")) {
+    return color;
+  }
   const paths = color.split(".");
   if (paths.length !== 2) {
     return color;
