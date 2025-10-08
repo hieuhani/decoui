@@ -85,6 +85,10 @@ const resolveDesignTokenValue = (token: string, value: unknown) => {
   switch (token) {
     case "color":
     case "backgroundColor":
+    case "borderLeftColor":
+    case "borderRightColor":
+    case "borderTopColor":
+    case "borderBottomColor":
     case "borderColor": {
       return resolveTokenColor(value as PossibleColorToken);
     }
