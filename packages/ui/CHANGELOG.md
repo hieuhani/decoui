@@ -1,5 +1,17 @@
 # @decoui/ui
 
+## 0.0.11
+
+### Patch Changes
+
+- add border variant
+
+## 0.0.10
+
+### Patch Changes
+
+- support border left variant
+
 ## 0.0.9
 
 ### Patch Changes

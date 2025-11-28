@@ -52,9 +52,8 @@ export function decoHOC<Props extends PropsHaveStyle>(
     );
   };
 
-  DecoComponent.displayName = `Deco${
-    Component?.displayName ?? "NoNameComponent"
-  }`;
+  DecoComponent.displayName = `Deco${Component?.displayName ?? "NoNameComponent"
+    }`;
 
   return DecoComponent;
 }
@@ -72,6 +71,7 @@ export function colorLightDark(
     config.dependencies.colorScheme === "dark" ? dark : light
   );
 }
+
 
 /**
  * Applies styling with context-aware capabilities
